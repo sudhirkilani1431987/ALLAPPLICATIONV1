@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8022" doc:name="HTTP Listener Configuration"/>
+    <flow name="xmlfileaccesswithoutfileFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/>
+        <logger message="stered" level="INFO" doc:name="Logger"/>
+        <set-payload value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;bookstore&gt;
+&lt;book&gt;
+  &lt;title lang=&quot;en&quot;&gt;Harry Potter&lt;/title&gt;
+  &lt;price&gt;29.99&lt;/price&gt;
+&lt;/book&gt;
+&lt;book&gt;
+  &lt;title lang=&quot;en&quot;&gt;Learning XML&lt;/title&gt;
+  &lt;price&gt;39.95&lt;/price&gt;
+&lt;/book&gt;
+&lt;book&gt;
+  &lt;title lang=&quot;en&quot;&gt;samarasimhareddy&lt;/title&gt;
+  &lt;price&gt;49.95&lt;/price&gt;
+&lt;/book&gt;
+&lt;book&gt;
+  &lt;title lang=&quot;en&quot;&gt;jai simha&lt;/title&gt;
+  &lt;price&gt;79.95&lt;/price&gt;
+&lt;/book&gt;
+&lt;book&gt;
+  &lt;title lang=&quot;en&quot;&gt;narasimha&lt;/title&gt;
+  &lt;price&gt;39.95&lt;/price&gt;
+&lt;/book&gt;
+&lt;/bookstore&gt;
+" doc:name="Set Payload"/>
+        <set-payload value="#[xpath('/bookstore/book')]" doc:name="Set Payload"/>
+        <logger message="completed" level="INFO" doc:name="Logger"/>
+    </flow>
+</mule>
